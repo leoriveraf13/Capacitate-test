@@ -8,7 +8,6 @@ import CourseInfo from '../components/pageComp/CourseInfo';
 
 const StudentComp = () : ReactElement => {
     const [items, setItems] = useState<studentData>()
-    const [error, setError] = useState(false)
 
     const getItems = async () => {
         var res: studentData | undefined
@@ -16,9 +15,8 @@ const StudentComp = () : ReactElement => {
             await getData()
             .then((data) => res = data)
             .then(() => setItems(res))
-        } catch (error) {
-            setError(true)
-            console.error('Error obtaining data', error)
+        } catch (e) {
+            console.error('Error obtaining data', e)
         }
     }
 
@@ -38,11 +36,6 @@ const StudentComp = () : ReactElement => {
                         items={items}
                     />
                 </div>
-            ) : !!error ? (
-                <h1 className='error'>
-                    Ocurrió un error al intentar obtener sus datos. <br />
-                    Favor de contactar con el administrador
-                </h1>
             ) : (
                 <h1>No se encontraron registros</h1>
             )}
